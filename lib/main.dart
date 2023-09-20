@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rathauswolfe/pages/datenschutz/screen/datenschutz_screen.dart';
+import 'package:rathauswolfe/pages/impressum/screen/impressum_screen.dart';
 import 'package:rathauswolfe/pages/startseite/screen/startseite_screen.dart';
 import 'package:rathauswolfe/pages/startseite/widgets/navigation_option_widget.dart';
 import 'package:rathauswolfe/utils/base_text.dart';
@@ -37,7 +39,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final listPages = const [StartSeinteScreen(), Column(), Column()];
+  final listPages = const [
+    StartSeinteScreen(),
+    ImpressumScreen(),
+    DatenschutzScreen()
+  ];
   int index = 0;
   bool isNavOpen = false;
   @override
@@ -91,26 +97,32 @@ class _MyHomePageState extends State<MyHomePage> {
   Column navigationMobile() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        IconButton(
-          icon: Icon(
+        const SizedBox(
+          height: 32,
+        ),
+        InkWell(
+          child: Icon(
             isNavOpen ? Icons.close : Icons.menu,
             color: colorWhite,
           ),
-          onPressed: () => setState(() {
+          onTap: () => setState(() {
             isNavOpen = !isNavOpen;
           }),
         ),
         AnimatedContainer(
+          width: MediaQuery.of(context).size.width,
           margin: const EdgeInsets.symmetric(vertical: 16),
           duration: const Duration(milliseconds: 600),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: isNavOpen
                 ? [
                     GestureDetector(
                       onTap: () => setState(() {
                         index = 0;
+                        isNavOpen = !isNavOpen;
                       }),
                       child: NavigationOptionWidget(
                           isMobile: true,
@@ -120,6 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     GestureDetector(
                       onTap: () => setState(() {
                         index = 1;
+                        isNavOpen = !isNavOpen;
                       }),
                       child: NavigationOptionWidget(
                           isMobile: true,
@@ -129,6 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     GestureDetector(
                       onTap: () => setState(() {
                         index = 2;
+                        isNavOpen = !isNavOpen;
                       }),
                       child: NavigationOptionWidget(
                           isMobile: true,
