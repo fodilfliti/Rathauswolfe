@@ -63,28 +63,28 @@ class StartSeinteScreen extends StatelessWidget {
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: 1048),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  Text(
-                    '8. Open Air Dart Turnier',
-                    textAlign: TextAlign.center,
-                    style: cusTextStyle(
-                        fontSize: 36,
-                        color: colorWhite,
-                        height: 1,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  Padding(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 32,
+                ),
+                Text(
+                  '8. Open Air Dart Turnier',
+                  textAlign: TextAlign.center,
+                  style: cusTextStyle(
+                      fontSize: 36,
+                      color: colorWhite,
+                      height: 1,
+                      fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                Container(
+                  constraints: const BoxConstraints(maxWidth: 1048),
+                  child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
                       "Seid ihr bereit für das jährliche Highlight unseres Dart-Clubs? Dann solltet ihr euch das ultimative Darts-Turnier auf keinen Fall entgehen lassen! Hier trefft ihr auf begeisterte Dartspieler und -spielerinnen aus der ganzen Region und könnt eure Skills unter Beweis stellen. Das Turnier ist jedes Jahr ein absolutes Highlight für uns und wir freuen uns immer wieder aufs Neue darauf. Es ist die perfekte Gelegenheit, um neue Leute kennenzulernen, alte Freunde zu treffen und eine tolle Zeit zu haben.&nbsp; Also merkt euch den Termin schon mal vor und lasst euch dieses Event nicht entgehen!",
@@ -95,23 +95,23 @@ class StartSeinteScreen extends StatelessWidget {
                           fontWeight: FontWeight.w400),
                     ),
                   ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  Text(
-                    'Datum folgt in kürze',
-                    textAlign: TextAlign.center,
-                    style: cusTextStyle(
-                        fontSize: 16,
-                        color: HexColor("#7A7A7A"),
-                        height: 1,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                Text(
+                  'Datum folgt in kürze',
+                  textAlign: TextAlign.center,
+                  style: cusTextStyle(
+                      fontSize: 16,
+                      color: HexColor("#7A7A7A"),
+                      height: 1,
+                      fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+              ],
             ),
           )
         ],

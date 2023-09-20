@@ -14,9 +14,8 @@ class LogoWithTextSectionDestopWidget extends StatefulWidget {
 
 class _LogoWithTextSectionDestopWidgetState
     extends State<LogoWithTextSectionDestopWidget> {
-  @override
   bool isHovered = false;
-
+  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -42,7 +41,7 @@ class _LogoWithTextSectionDestopWidgetState
                         height: 1,
                         fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   Padding(
@@ -61,7 +60,7 @@ class _LogoWithTextSectionDestopWidgetState
             );
           }),
         ),
-        SizedBox(
+        const SizedBox(
           width: 75,
         ),
         Flexible(
@@ -69,7 +68,7 @@ class _LogoWithTextSectionDestopWidgetState
               builder: (BuildContext context, BoxConstraints constraints) {
             final width = min<double>(constraints.maxWidth, 512);
             return Container(
-              margin: EdgeInsets.symmetric(vertical: 49),
+              margin: const EdgeInsets.symmetric(vertical: 49),
               child: FittedBox(
                 fit: BoxFit.scaleDown,
                 child: TapRegion(
@@ -92,7 +91,7 @@ class _LogoWithTextSectionDestopWidgetState
                       }),
                       child: AnimatedScale(
                         scale: isHovered ? 1.1 : 1.0,
-                        duration: Duration(milliseconds: 200),
+                        duration: const Duration(milliseconds: 200),
                         child: Image.asset(
                           'assets/logo.png',
                           fit: BoxFit.fitWidth,
