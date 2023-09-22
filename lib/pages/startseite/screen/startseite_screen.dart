@@ -42,6 +42,18 @@ class StartSeinteScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 16),
             child: Column(
               children: [
+                Text(
+                  '   Tabelle',
+                  textAlign: TextAlign.center,
+                  style: cusTextStyle(
+                      fontSize: 36,
+                      color: colorBlackText,
+                      height: 1,
+                      fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
                 LayoutBuilder(builder:
                     (BuildContext context, BoxConstraints constraints) {
                   return constraints.maxWidth < 580
