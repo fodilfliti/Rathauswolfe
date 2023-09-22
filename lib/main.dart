@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:rathauswolfe/pages/datenschutz/screen/datenschutz_screen.dart';
 import 'package:rathauswolfe/pages/impressum/screen/impressum_screen.dart';
 import 'package:rathauswolfe/pages/startseite/screen/startseite_screen.dart';
@@ -39,57 +42,127 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  ScrollController scrollController = ScrollController();
+  bool isVisible = false;
+  late Timer _scrollTimer = Timer(const Duration(milliseconds: 200), () {});
+  double _lastScrollOffset = 0.0;
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
   final listPages = const [
     StartSeinteScreen(),
     ImpressumScreen(),
     DatenschutzScreen()
   ];
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    if (_scrollTimer != null && _scrollTimer.isActive) {
+      _scrollTimer.cancel();
+    }
+
+    _scrollTimer = Timer(const Duration(milliseconds: 200), () {
+      if (scrollController.position.pixels == _lastScrollOffset &&
+          scrollController.offset > 0) {
+        setState(() {
+          isVisible = true;
+        });
+      } else {
+        setState(() {
+          _lastScrollOffset = scrollController.position.pixels;
+          isVisible = false;
+        });
+      }
+    });
+    setState(() {
+      _lastScrollOffset = scrollController.position.pixels;
+    });
+  }
+
   int index = 0;
   bool isNavOpen = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          decoration: BoxDecoration(color: colorBgPrimary),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              ScreenTypeLayout.builder(
-                mobile: (context) => navigationMobile(),
-                tablet: (context) => navigationMobile(),
-                desktop: (context) => navigationDesctop(),
-              ),
-              listPages[index],
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 200,
-                decoration: BoxDecoration(color: colorBgPrimary),
-                child: Center(
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        // ignore: deprecated_member_use
-                        launch("https://jxnxs.de/");
-                      },
-                      child: Text(
-                        'DC Rathauswölfe Schwebenried © 2023 by JXNXS.de​',
-                        textAlign: TextAlign.start,
-                        style: cusTextStyle(
-                            fontSize: 16,
-                            color: colorWhite,
-                            height: 1,
-                            fontWeight: FontWeight.w600),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            controller: scrollController,
+            child: Container(
+              decoration: BoxDecoration(color: colorBgPrimary),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  ScreenTypeLayout.builder(
+                    mobile: (context) => navigationMobile(),
+                    tablet: (context) => navigationMobile(),
+                    desktop: (context) => navigationDesctop(),
+                  ),
+                  listPages[index],
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 200,
+                    decoration: BoxDecoration(color: colorBgPrimary),
+                    child: Center(
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () {
+                            // ignore: deprecated_member_use
+                            launch("https://jxnxs.de/");
+                          },
+                          child: Text(
+                            'DC Rathauswölfe Schwebenried © 2023 by JXNXS.de​',
+                            textAlign: TextAlign.start,
+                            style: cusTextStyle(
+                                fontSize: 16,
+                                color: colorWhite,
+                                height: 1,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
                       ),
                     ),
                   ),
+                ],
+              ),
+            ),
+          ),
+          AnimatedPositioned(
+              bottom: isVisible ? 25 : -200,
+              right: 25,
+              // ignore: sort_child_properties_last
+              child: GestureDetector(
+                onTap: () {
+                  scrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(
+                        color: colorBlackText,
+                      )),
+                  child: const Icon(
+                    Icons.keyboard_arrow_up_outlined,
+                    size: 32,
+                  ),
                 ),
               ),
-            ],
-          ),
-        ),
+              duration: const Duration(milliseconds: 500))
+        ],
       ),
     );
   }
